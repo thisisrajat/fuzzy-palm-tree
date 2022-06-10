@@ -5,6 +5,9 @@ const express = require("express");
 const hbs = require("express-handlebars");
 const path = require("path");
 
+const commentRoutes = require("./app/routes/comment");
+const apiRoutes = require("./app/routes/api");
+
 const app = express();
 
 // Initialize handlebars
@@ -18,6 +21,10 @@ app.use(express.static("public"));
 // Parse request body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Route handlers
+app.use("/", commentRoutes);
+app.use("/", apiRoutes);
 
 // Start app
 const port = process.env.PORT || 3000;

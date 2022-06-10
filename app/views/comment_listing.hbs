@@ -1,0 +1,30 @@
+<main class="comment-discussion">
+  <h2 class="heading heading__2">Discussion</h2>
+  <div class="comment-form">
+    <img class="avatar" src="{{ user.avatar_url }}" alt="{{ user.name }}" />
+    <input type="text" placeholder="What are your thoughts?" rows="1" class="js-comment-input comment-form-input" />
+    <button class="js-comment-submit comment-form-submit">Comment
+    </button>
+  </div>
+  <hr class="comment-discussion-divider" />
+  {{#each comments}}
+    <div class="comment">
+      <div>
+        <img class="avatar" src="{{ author.avatar_url }}" alt="{{ author.name }}" />
+      </div>
+      <div>
+        <div class="comment-header">
+          <h3 class="heading heading__3">{{ author.name }}</h3>
+          <span class="separator">&middot;</span>
+          <time class="time">{{ created_ago }}</time>
+        </div>
+        <div class="comment-body">
+          {{ text }}
+        </div>
+        <div class="comment-footer">
+          <a href="#" data-comment-id="{{ id }}" class="upvote-btn js-upvote-btn {{#if has_user_voted}}active{{else}}{{/if}}"><span class="upvote_icon">▲</span>Upvote{{#if upvote}} ({{ upvote }}){{else}}{{/if}}</a>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</main>

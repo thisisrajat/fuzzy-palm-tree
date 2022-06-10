@@ -2,6 +2,13 @@
 <html lang="en">
   <head>
     <title>Ghost coding challenge</title>
+    <link href="/assets/comment.css" rel="stylesheet" />
+    <script src="/assets/comment.js" defer async></script>
+    <script>
+      var config = {
+        userId: {{ user.id }},
+      };
+    </script>
   </head>
   <body>
     {{{body}}}

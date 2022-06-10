@@ -16,7 +16,8 @@
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "knex": "^2.1.0",
-    "sqlite3": "^5.0.8"
+    "sqlite3": "^5.0.8",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "jest": "^28.1.0",
