@@ -22,7 +22,7 @@
           {{ text }}
         </div>
         <div class="comment-footer">
-          <a href="#" data-comment-id="{{ id }}" class="upvote-btn js-upvote-btn {{#if has_user_voted}}active{{else}}{{/if}}"><span class="upvote_icon">▲</span>Upvote{{#if upvote}} ({{ upvote }}){{else}}{{/if}}</a>
+          <span class="upvote-btn-container" data-comment-id="{{ id }}" data-has-user-voted="{{ has_user_voted }}" data-upvote="{{ upvote }}"></span>
         </div>
       </div>
     </div>
