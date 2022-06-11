@@ -5,11 +5,17 @@ const Upvote = require("../models/upvote");
 
 async function buildData({ userId, commentId }) {
   let comments = [];
+  let replies = [];
 
   if (commentId) {
-    comments = [await Comment.findById(commentId)];
+    comments = await Comment.findById(commentId);
+    if (!Array.isArray(comments)) {
+      comments = [comments];
+    }
   } else {
-    comments = await Comment.findAll();
+    comments = await Comment.findAllTopLevel();
+    replies = await Comment.findAllReplies();
+    replies = await buildData({ userId, commentId: replies.map((c) => c.id) });
   }
 
   /* get all authors */
@@ -29,6 +35,9 @@ async function buildData({ userId, commentId }) {
     const upvote = votes.find((vote) => vote.comment_id === comment.id);
     const selfVote =
       userVotes.findIndex((vote) => vote.comment_id === comment.id) >= 0;
+    const commentReplies = replies.filter(
+      (reply) => reply.parent_comment_id === comment.id
+    );
 
     return {
       ...comment,
@@ -36,6 +45,7 @@ async function buildData({ userId, commentId }) {
       created_ago: timeago.format(comment.created_at),
       upvote: upvote && upvote["COUNT(*)"],
       has_user_voted: selfVote,
+      replies: commentReplies,
     };
   });
 

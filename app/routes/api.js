@@ -5,7 +5,7 @@ const Upvote = require("../models/upvote");
 const router = express.Router();
 
 router.post("/api/comment", async (req, res) => {
-  const { comment, user_id } = req.body;
+  const { comment, user_id, parent_comment_id } = req.body;
 
   if (!comment) {
     return res.status(400).json({ error: "Comment is required" });
@@ -15,9 +15,24 @@ router.post("/api/comment", async (req, res) => {
     return res.status(400).json({ error: "User ID is required" });
   }
 
+  if (parent_comment_id) {
+    // Check if comment exists
+    const parentComment = await Comment.findById(parent_comment_id);
+
+    if (!parentComment || !parentComment.id) {
+      return res.status(400).json({ error: "Comment not found" });
+    }
+
+    // Check if the comment is already a reply
+    if (parentComment.parent_comment_id) {
+      return res.status(400).json({ error: "Comment is already a reply" });
+    }
+  }
+
   const insertableData = {
     author_id: user_id,
     text: comment,
+    parent_comment_id,
   };
 
   await Comment.create(insertableData);

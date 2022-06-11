@@ -147,16 +147,40 @@ input, textarea, button {
   font-size: 0.9rem;
 }
 
-.comment .comment-footer .upvote_icon{
+.comment .comment-footer .upvote_icon {
   margin-right: 0.5rem;
   font-size: 0.8rem;
 }
 
-.comment .comment-footer .upvote-btn {
+.comment .comment-footer .upvote-btn,
+.comment .comment-footer .reply-btn {
   color: var(--color-secondary-gray);
   text-decoration: none;
 }
 
-.comment .comment-footer .upvote-btn:hover,.comment .comment-footer .upvote-btn.active {
+.comment .comment-footer .upvote-btn:hover,
+.comment .comment-footer .upvote-btn.active,
+.comment .comment-footer .reply-btn:hover {
   color: var(--accent-color);
 }
+
+.comment .comment-footer .reply-btn {
+  margin-left: 2rem;
+}
+
+.comment-reply-form {
+  display: flex;
+  align-items: center;
+  margin-left: 3rem;
+  margin-bottom: 2rem;
+}
+
+.comment-reply-form .avatar {
+  margin-right: 1rem;
+}
+
+.comment-replies-block {
+  margin-left: 3rem;
+  margin-bottom: 2rem;
+}
+
