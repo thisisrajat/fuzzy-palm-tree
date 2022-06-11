@@ -1,4 +1,5 @@
 /node_modules
 /.tool-versions
-/ghost.db
+/ghost.db*
 /public/assets/webpack
+
