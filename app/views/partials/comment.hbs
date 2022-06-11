@@ -1,0 +1,19 @@
+<div class="comment js-comment" data-id="{{ id }}">
+  <div>
+    <img class="avatar" src="{{ author.avatar_url }}" alt="{{ author.name }}" />
+  </div>
+  <div>
+    <div class="comment-header">
+      <h3 class="heading heading__3">{{ author.name }}</h3>
+      <span class="separator">&middot;</span>
+      <time datetime="{{ iso_string created_at }}" class="time">{{ created_at }}</time>
+    </div>
+    <div class="comment-body">
+      {{ text }}
+    </div>
+    <div class="comment-footer">
+      <span class="upvote-btn-container" data-comment-id="{{ id }}" data-has-user-voted="{{ has_user_voted }}" data-upvote="{{ upvote }}"></span>
+      {{#if showReply}}<a href="#" class="js-reply-btn reply-btn">Reply</a>{{/if}}
+    </div>
+  </div>
+</div>

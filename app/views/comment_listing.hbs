@@ -1,56 +1,14 @@
 <main class="comment-discussion">
   <h2 class="heading heading__2">Discussion</h2>
-  <div class="comment-form js-comment-form">
-    <img class="avatar" src="{{ user.avatar_url }}" alt="{{ user.name }}" />
-    <input type="text" placeholder="What are your thoughts?" class="js-comment-input comment-form-input" />
-    <button class="js-comment-submit comment-form-submit">Comment
-    </button>
-  </div>
+  {{> comment_form }}
   <hr class="comment-discussion-divider" />
   <div class="comment-block js-comment-block">
     {{#each comments}}
-      <div class="comment js-comment" data-id="{{ id }}">
-        <div>
-          <img class="avatar" src="{{ author.avatar_url }}" alt="{{ author.name }}" />
-        </div>
-        <div>
-          <div class="comment-header">
-            <h3 class="heading heading__3">{{ author.name }}</h3>
-            <span class="separator">&middot;</span>
-            <time datetime="{{ iso_string created_at }}" class="time">{{ created_at }}</time>
-          </div>
-          <div class="comment-body">
-            {{ text }}
-          </div>
-          <div class="comment-footer">
-            <span class="upvote-btn-container" data-comment-id="{{ id }}" data-has-user-voted="{{ has_user_voted }}" data-upvote="{{ upvote }}"></span>
-            <a href="#" class="js-reply-btn reply-btn">Reply</a>
-          </div>
-        </div>
-      </div>
+      {{> comment showReply=true }}
       <div class="js-comment-reply-form"></div>
       <div class="comment-replies-block js-comment-replies">
          {{#each replies}}
-          <div class="comment-block js-comment-block" data-id="{{ id }}">
-            <div class="comment js-comment">
-              <div>
-                <img class="avatar" src="{{ author.avatar_url }}" alt="{{ author.name }}" />
-              </div>
-              <div>
-                <div class="comment-header">
-                  <h3 class="heading heading__3">{{ author.name }}</h3>
-                  <span class="separator">&middot;</span>
-                  <time datetime="{{ iso_string created_at }}" class="time">{{ created_at }}</time>
-                </div>
-                <div class="comment-body">
-                  {{ text }}
-                </div>
-                <div class="comment-footer">
-                  <span class="upvote-btn-container" data-comment-id="{{ id }}" data-has-user-voted="{{ has_user_voted }}" data-upvote="{{ upvote }}"></span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {{> comment showReply=false }}
         {{/each}}
       </div>
     {{/each}}
