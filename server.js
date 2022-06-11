@@ -7,8 +7,10 @@ const path = require("path");
 
 const commentRoutes = require("./app/routes/comment");
 const apiRoutes = require("./app/routes/api");
+const websocketRoutes = require("./app/routes/websocket_routes");
 
 const app = express();
+const expressWs = require("express-ws")(app);
 
 // Initialize handlebars
 app.engine("hbs", hbs.engine({ extname: "hbs" }));
@@ -25,6 +27,8 @@ app.use(express.json());
 // Route handlers
 app.use("/", commentRoutes);
 app.use("/", apiRoutes);
+
+websocketRoutes(app, expressWs);
 
 // Start app
 const port = process.env.PORT || 3000;

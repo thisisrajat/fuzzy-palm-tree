@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import withWebSocketSubscription from "./with_websocket_subscription";
 
 class UpvoteButton extends Component {
   handleClick = async (e) => {
     e.preventDefault();
 
-    const commentId = this.props.id;
+    const { id, upvote, active, websocketClient } = this.props;
 
-    fetch(`/api/comment/${commentId}/upvote`, {
+    fetch(`/api/comment/${id}/upvote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +19,13 @@ class UpvoteButton extends Component {
     })
       .then((res) => res.json())
       .then(() => {
-        window.location.href = window.location.href;
+        websocketClient.send(
+          JSON.stringify({
+            action: "COMMENT_TOGGLE",
+            id,
+            voter_id: window.config.userId,
+          })
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -42,4 +49,4 @@ class UpvoteButton extends Component {
   }
 }
 
-export default UpvoteButton;
+export default withWebSocketSubscription(UpvoteButton);

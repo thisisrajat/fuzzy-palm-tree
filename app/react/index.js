@@ -11,7 +11,11 @@ upvoteBtnContainerEls.forEach((upvoteBtnContainerEl) => {
   const { commentId, hasUserVoted, upvote } = upvoteBtnContainerEl.dataset;
 
   ReactDOM.render(
-    <UpvoteButton id={commentId} active={hasUserVoted} upvote={upvote} />,
+    <UpvoteButton
+      id={parseInt(commentId, 10)}
+      active={hasUserVoted === "true"}
+      upvote={upvote}
+    />,
     upvoteBtnContainerEl
   );
 });

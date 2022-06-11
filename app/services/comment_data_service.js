@@ -3,8 +3,14 @@ const Comment = require("../models/comment");
 const User = require("../models/user");
 const Upvote = require("../models/upvote");
 
-async function buildData({ userId }) {
-  const comments = await Comment.findAll();
+async function buildData({ userId, commentId }) {
+  let comments = [];
+
+  if (commentId) {
+    comments = [await Comment.findById(commentId)];
+  } else {
+    comments = await Comment.findAll();
+  }
 
   /* get all authors */
   const authorIds = comments.map((comment) => comment.author_id);
@@ -21,7 +27,8 @@ async function buildData({ userId }) {
   const commentsWithAuthors = comments.map((comment) => {
     const author = authors.find((author) => author.id === comment.author_id);
     const upvote = votes.find((vote) => vote.comment_id === comment.id);
-    const selfVote = userVotes.find((vote) => vote.comment_id === comment.id);
+    const selfVote =
+      userVotes.findIndex((vote) => vote.comment_id === comment.id) >= 0;
 
     return {
       ...comment,
