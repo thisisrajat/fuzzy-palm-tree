@@ -17,7 +17,7 @@
           <div class="comment-header">
             <h3 class="heading heading__3">{{ author.name }}</h3>
             <span class="separator">&middot;</span>
-            <time class="time">{{ created_ago }}</time>
+            <time datetime="{{ iso_string created_at }}" class="time">{{ created_at }}</time>
           </div>
           <div class="comment-body">
             {{ text }}
@@ -40,7 +40,7 @@
                 <div class="comment-header">
                   <h3 class="heading heading__3">{{ author.name }}</h3>
                   <span class="separator">&middot;</span>
-                  <time class="time">{{ created_ago }}</time>
+                  <time datetime="{{ iso_string created_at }}" class="time">{{ created_at }}</time>
                 </div>
                 <div class="comment-body">
                   {{ text }}

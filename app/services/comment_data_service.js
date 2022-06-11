@@ -1,4 +1,3 @@
-const timeago = require("timeago.js");
 const Comment = require("../models/comment");
 const User = require("../models/user");
 const Upvote = require("../models/upvote");
@@ -29,7 +28,7 @@ async function buildData({ userId, commentId }) {
   /* get all upvotes for current user */
   const userVotes = (await Upvote.fetchByUserId(userId)) || [];
 
-  /* map authors and created_ago to comments */
+  /* map authors, upvotes to comments */
   const commentsWithAuthors = comments.map((comment) => {
     const author = authors.find((author) => author.id === comment.author_id);
     const upvote = votes.find((vote) => vote.comment_id === comment.id);
@@ -42,7 +41,6 @@ async function buildData({ userId, commentId }) {
     return {
       ...comment,
       author,
-      created_ago: timeago.format(comment.created_at),
       upvote: upvote && upvote["COUNT(*)"],
       has_user_voted: selfVote,
       replies: commentReplies,

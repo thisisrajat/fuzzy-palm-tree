@@ -91,4 +91,6 @@ window.addEventListener("load", function () {
   document
     .querySelector(".js-comment-block")
     .addEventListener("keypress", handleReplyInput);
+
+  timeago.render(document.querySelectorAll("time"));
 });

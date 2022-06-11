@@ -8,12 +8,13 @@ const path = require("path");
 const commentRoutes = require("./app/routes/comment");
 const apiRoutes = require("./app/routes/api");
 const websocketRoutes = require("./app/routes/websocket_routes");
+const hbsHelpers = require("./app/helpers/hbs_helpers");
 
 const app = express();
 const expressWs = require("express-ws")(app);
 
 // Initialize handlebars
-app.engine("hbs", hbs.engine({ extname: "hbs" }));
+app.engine("hbs", hbs.engine({ extname: "hbs", helpers: hbsHelpers }));
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "app/views"));
 
