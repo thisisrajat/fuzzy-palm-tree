@@ -2,16 +2,9 @@ import React, { Component } from "react";
 
 const WEBSOCKET_OPEN = 1;
 
-let currentOpenConnection = null;
+const ws = new WebSocket("ws://localhost:3000/ws");
 
-function connectToServer() {
-  // if (currentOpenConnection) {
-  //   return Promise.resolve(currentOpenConnection);
-  // }
-  const ws = new WebSocket("ws://localhost:3000/ws");
-
-  currentOpenConnection = ws;
-
+function createSubscription() {
   return new Promise((resolve) => {
     const timer = setInterval(() => {
       if (ws.readyState === WEBSOCKET_OPEN) {
@@ -32,17 +25,18 @@ export default function withWebSocketSubscription(WrappedComponent) {
     }
 
     componentDidMount() {
-      connectToServer().then((ws) => {
+      createSubscription().then((ws) => {
         this.setState({
           websocketClient: ws,
         });
 
-        ws.onmessage = this.handleMessage;
+        ws.addEventListener("message", this.handleMessage);
       });
     }
 
     componentWillUnmount() {
       const { websocketClient } = this.state;
+      websocketClient.removeEventListener("message", this.handleMessage);
       websocketClient.close();
     }
 
@@ -57,6 +51,7 @@ export default function withWebSocketSubscription(WrappedComponent) {
       switch (data.action) {
         case "REFRESH_COMMENT_DATA": {
           const incomingCommentId = data.id;
+
           if (this.props.id === incomingCommentId) {
             this.setState({
               overrideProps: true,
