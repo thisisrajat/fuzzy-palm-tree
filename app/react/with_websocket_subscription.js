@@ -2,7 +2,9 @@ import React, { Component } from "react";
 
 const WEBSOCKET_OPEN = 1;
 
-const ws = new WebSocket("ws://localhost:3000/ws");
+const HOST = process.env.HOST;
+
+const ws = new WebSocket(`ws://${HOST}/ws`);
 
 function createSubscription() {
   return new Promise((resolve) => {

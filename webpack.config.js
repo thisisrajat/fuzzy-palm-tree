@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const webpack = require("webpack");
 
@@ -22,7 +23,12 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/",
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      "process.env.HOST": JSON.stringify(process.env.HOST),
+    }),
+  ],
   devServer: {
     hot: true,
     historyApiFallback: true,
