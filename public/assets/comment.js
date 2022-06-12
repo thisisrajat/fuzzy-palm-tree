@@ -49,13 +49,22 @@ function handleReplyInput(e) {
 function handleReplyClick(event) {
   const commentEl = event.target.closest(".js-comment");
   const formEl = document.createElement("div");
-  formEl.dataset.parentId = commentEl.dataset.id;
+  formEl.dataset.parentId = commentEl.dataset.parentId || commentEl.dataset.id;
   formEl.innerHTML = document.querySelector(".js-comment-form").innerHTML;
   formEl.classList = "comment-reply-form js-comment-reply-form";
 
   const body = commentEl.nextElementSibling;
 
   if (body.childNodes.length === 0) {
+    const threadEl = document.createElement("div");
+    threadEl.classList = "comment-reply-thread";
+    if (
+      body.nextElementSibling &&
+      Number(body.nextElementSibling.dataset.repliesLength) === 0
+    ) {
+      threadEl.classList.add("hide");
+    }
+    body.appendChild(threadEl);
     body.appendChild(formEl);
   }
 }

@@ -4,11 +4,12 @@
   <hr class="comment-discussion-divider" />
   <div class="comment-block js-comment-block">
     {{#each comments}}
-      {{> comment showReply=true }}
-      <div class="js-comment-reply-form"></div>
-      <div class="comment-replies-block js-comment-replies">
-         {{#each replies}}
-          {{> comment showReply=false }}
+      {{> comment isTopLevel=true }}
+      <div class="reply-form-container js-comment-reply-form"></div>
+      <div class="comment-replies-block js-comment-replies" data-replies-length="{{ replies.length }}">
+        {{#each replies}}
+          {{> comment isTopLevel=false }}
+          <div class="reply-form-container js-comment-reply-form"></div>
         {{/each}}
       </div>
     {{/each}}

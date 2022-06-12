@@ -113,6 +113,31 @@ input, textarea, button {
   margin-right: 1rem;
 }
 
+.comment-avatar-thread {
+  position: relative;
+}
+
+.comment-avatar-thread::before,
+.comment-reply-thread::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: var(--color-border-gray);
+  left: 15px;
+  z-index: -1;
+}
+
+.comment-reply-thread {
+  min-width: 48px;
+  position: relative;
+  margin-top: -2rem;
+}
+
+.comment-reply-thread.hide {
+  visibility: hidden;
+}
+
 .comment-header {
   display: flex;
   align-items: baseline;
@@ -171,8 +196,8 @@ input, textarea, button {
 .comment-reply-form {
   display: flex;
   align-items: center;
-  margin-left: 3rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .comment-reply-form .avatar {
@@ -180,7 +205,10 @@ input, textarea, button {
 }
 
 .comment-replies-block {
-  margin-left: 3rem;
   margin-bottom: 2rem;
+}
+
+.reply-form-container {
+  display: flex;
 }
 
