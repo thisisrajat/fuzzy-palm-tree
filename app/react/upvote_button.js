@@ -43,7 +43,8 @@ class UpvoteButton extends Component {
         className={classNames}
         onClick={this.handleClick}
       >
-        <span class="upvote_icon">▲</span>Upvote {upvote ? `(${upvote})` : ""}
+        <span className="upvote_icon">▲</span>Upvote{" "}
+        {upvote ? `(${upvote})` : ""}
       </a>
     );
   }
